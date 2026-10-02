@@ -1,0 +1,22 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Users — PROTODUDES Admin{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">Staff Users</h1>
+  <a href="{{ url_for('admin_user_new') }}" class="btn btn-primary">+ Add User</a>
+</div>
+<table class="data-table">
+  <thead><tr><th>#</th><th>Username</th><th>Role</th><th>Created</th></tr></thead>
+  <tbody>
+    {% for u in users %}
+    <tr>
+      <td>{{ u.id }}</td>
+      <td>{{ u.username }}</td>
+      <td><span class="badge badge-{{ u.role }}">{{ u.role }}</span></td>
+      <td>{{ u.created[:10] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %} Protodudes Admin{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body class="admin-body">
+
+<div class="admin-layout">
+  <aside class="sidebar">
+    <a class="brand" href="{{ url_for('index') }}">Protodudes</a>
+    <nav class="sidebar-nav">
+      <a href="{{ url_for('admin_dashboard') }}">📊 Dashboard</a>
+      <a href="{{ url_for('admin_quotes') }}">📋 Quotes</a>
+      <a href="{{ url_for('admin_jobs') }}">🔧 Jobs</a>
+      {% if session.get('role') == 'admin' %}
+      <a href="{{ url_for('admin_users') }}">👥 Users</a>
+      {% endif %}
+      <hr/>
+      <a href="{{ url_for('admin_quotes_export') }}">⬇ Export Quotes CSV</a>
+      <a href="{{ url_for('admin_jobs_export') }}">⬇ Export Jobs CSV</a>
+      <hr/>
+      <a href="{{ url_for('admin_change_password') }}">🔑 Change Password</a>
+      <a href="{{ url_for('logout') }}">🚪 Log Out</a>
+    </nav>
+  </aside>
+
+  <div class="admin-main">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </div>
+</div>
+
+</body>
+</html>

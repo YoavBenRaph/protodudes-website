@@ -1,0 +1,47 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Quotes — PROTODUDES Admin{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">Quotes</h1>
+  <div>
+    <a href="{{ url_for('admin_quotes_export') }}" class="btn btn-secondary">⬇ Export CSV</a>
+  </div>
+</div>
+
+<div class="filter-bar">
+  Filter:
+  <a href="{{ url_for('admin_quotes') }}" class="{{ 'active' if not filter_status }}">All</a>
+  <a href="{{ url_for('admin_quotes', status='new') }}" class="{{ 'active' if filter_status=='new' }}">New</a>
+  <a href="{{ url_for('admin_quotes', status='in_progress') }}" class="{{ 'active' if filter_status=='in_progress' }}">In Progress</a>
+  <a href="{{ url_for('admin_quotes', status='done') }}" class="{{ 'active' if filter_status=='done' }}">Done</a>
+  <a href="{{ url_for('admin_quotes', status='cancelled') }}" class="{{ 'active' if filter_status=='cancelled' }}">Cancelled</a>
+</div>
+
+<table class="data-table">
+  <thead>
+    <tr><th>#</th><th>Name</th><th>Email</th><th>Material</th><th>Qty</th><th>Estimate</th><th>Status</th><th>Date</th><th></th></tr>
+  </thead>
+  <tbody>
+    {% for q in quotes %}
+    <tr>
+      <td>{{ q.id }}</td>
+      <td>{{ q.name }}</td>
+      <td>{{ q.email }}</td>
+      <td>{{ q.material or '—' }}</td>
+      <td>{{ q.quantity }}</td>
+      <td>
+        {% if q.estimated_low and q.estimated_high %}
+          ${{ "%.2f"|format(q.estimated_low) }} – ${{ "%.2f"|format(q.estimated_high) }}
+        {% else %}—{% endif %}
+      </td>
+      <td><span class="badge badge-{{ q.status }}">{{ q.status }}</span></td>
+      <td>{{ q.created[:10] }}</td>
+      <td><a href="{{ url_for('admin_quote_detail', quote_id=q.id) }}">View</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="9" style="text-align:center;color:#999">No quotes found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

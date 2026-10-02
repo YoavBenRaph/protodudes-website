@@ -1,0 +1,63 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}New Job — PROTODUDES Admin{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('admin_jobs') }}" class="back-link">← Back to Jobs</a>
+<h1 class="page-title">New Job</h1>
+
+<div class="detail-card">
+  <form method="POST" class="contact-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="title">Job Title *</label>
+        <input type="text" id="title" name="title" required />
+      </div>
+      <div class="form-group">
+        <label for="client_name">Client Name</label>
+        <input type="text" id="client_name" name="client_name" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="quote_id">Linked Quote</label>
+        <select id="quote_id" name="quote_id">
+          <option value="">— None —</option>
+          {% for q in quotes %}
+            <option value="{{ q.id }}">#{{ q.id }} — {{ q.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="material">Material</label>
+        <input type="text" id="material" name="material" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="weight_g">Weight (grams)</label>
+        <input type="number" id="weight_g" name="weight_g" step="0.1" min="0" />
+      </div>
+      <div class="form-group">
+        <label for="price">Price ($)</label>
+        <input type="number" id="price" name="price" step="0.01" min="0" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status">
+          <option value="pending">Pending</option>
+          <option value="in_progress">In Progress</option>
+          <option value="done">Done</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group full-width">
+      <label for="notes">Notes</label>
+      <textarea id="notes" name="notes" rows="4"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Job</button>
+  </form>
+</div>
+{% endblock %}

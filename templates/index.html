@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %} PROTODUDES — Layer By Layer 3D Printing{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-text">
+    <h1>Layer By Layer 3D</h1>
+    <p>Ottawa's premier FDM 3D printing shop. Custom parts, rapid prototypes, and more — printed with precision.</p>
+    <div class="hero-buttons">
+      <a class="btn btn-primary" href="{{ url_for('quote') }}">Get an Instant Quote</a>
+      <a class="btn btn-secondary" href="{{ url_for('contact') }}">Contact Us</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="{{ url_for('static', filename='images/3d_printer_image.jpeg') }}" alt="3D Printer" width="380" />
+  </div>
+</section>
+
+<section class="services">
+  <h2>Our Services</h2>
+  <div class="service-grid">
+    <div class="service-card">
+      <h3>🖨️ 3D Printing</h3>
+      <p>FDM printing in PLA, PETG, ABS, TPU, and more. Fast turnaround, competitive pricing.</p>
+    </div>
+    <div class="service-card">
+      <h3>📐 Rapid Prototyping</h3>
+      <p>From concept to physical prototype in days. Great for engineers and designers.</p>
+    </div>
+    <div class="service-card">
+      <h3>🔧 Printer Repair</h3>
+      <p>We service and repair most consumer and prosumer FDM printers.</p>
+    </div>
+    <div class="service-card">
+      <h3>🛒 Printer Sales</h3>
+      <p>Looking to get into 3D printing? We carry trusted machines and can advise on the best fit.</p>
+    </div>
+    <div class="service-card">
+      <h3>🔍 3D Scanning</h3>
+      <p>Capture real-world objects for reproduction, reverse engineering, or archival.</p>
+    </div>
+    <div class="service-card">
+      <h3>✏️ 3D Modelling</h3>
+      <p>Have an idea but no CAD file? Our team can model it for you from sketches or photos.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Job #{{ job.id }} — PROTODUDES Admin{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('admin_jobs') }}" class="back-link">← Back to Jobs</a>
+<h1 class="page-title">Job #{{ job.id }} — {{ job.title }}</h1>
+
+<div class="detail-grid">
+  <div class="detail-card">
+    <h2>Details</h2>
+    <dl>
+      <dt>Client</dt><dd>{{ job.client_name or '—' }}</dd>
+      <dt>Material</dt><dd>{{ job.material or '—' }}</dd>
+      <dt>Weight</dt><dd>{{ (job.weight_g|string + ' g') if job.weight_g else '—' }}</dd>
+      <dt>Price</dt><dd>{{ ('$' + "%.2f"|format(job.price)) if job.price else '—' }}</dd>
+      <dt>Started</dt><dd>{{ job.started or '—' }}</dd>
+      <dt>Completed</dt><dd>{{ job.completed or '—' }}</dd>
+    </dl>
+  </div>
+  <div class="detail-card">
+    <h2>Update</h2>
+    <form method="POST" class="contact-form">
+      <div class="form-group full-width">
+        <label>Status</label>
+        <select name="status">
+          {% for s in ['pending', 'in_progress', 'done', 'cancelled'] %}
+            <option value="{{ s }}" {{ 'selected' if job.status == s }}>{{ s.replace('_',' ').title() }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group full-width">
+        <label>Price ($)</label>
+        <input type="number" name="price" step="0.01" min="0" value="{{ job.price or '' }}" />
+      </div>
+      <div class="form-group full-width">
+        <label>Notes</label>
+        <textarea name="notes" rows="4">{{ job.notes or '' }}</textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

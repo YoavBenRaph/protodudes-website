@@ -1,0 +1,60 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Quote #{{ quote.id }} — PROTODUDES Admin{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('admin_quotes') }}" class="back-link">← Back to Quotes</a>
+<h1 class="page-title">Quote #{{ quote.id }} — {{ quote.name }}</h1>
+
+<div class="detail-grid">
+  <div class="detail-card">
+    <h2>Client Info</h2>
+    <dl>
+      <dt>Name</dt><dd>{{ quote.name }}</dd>
+      <dt>Email</dt><dd><a href="mailto:{{ quote.email }}">{{ quote.email }}</a></dd>
+      <dt>Phone</dt><dd>{{ quote.phone or '—' }}</dd>
+    </dl>
+  </div>
+
+  <div class="detail-card">
+    <h2>Print Details</h2>
+    <dl>
+      <dt>Material</dt><dd>{{ quote.material or '—' }}</dd>
+      <dt>Quantity</dt><dd>{{ quote.quantity }}</dd>
+      <dt>Estimated Range</dt>
+      <dd>
+        {% if quote.estimated_low and quote.estimated_high %}
+          ${{ "%.2f"|format(quote.estimated_low) }} – ${{ "%.2f"|format(quote.estimated_high) }}
+        {% else %}Not provided{% endif %}
+      </dd>
+    </dl>
+  </div>
+</div>
+
+{% if quote.description %}
+<div class="detail-card" style="margin-top:1rem">
+  <h2>Description</h2>
+  <p style="white-space:pre-wrap">{{ quote.description }}</p>
+</div>
+{% endif %}
+
+<div class="detail-card" style="margin-top:1rem">
+  <h2>Update Status &amp; Notes</h2>
+  <form method="POST" class="contact-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Status</label>
+        <select name="status">
+          {% for s in ['new', 'in_progress', 'done', 'cancelled'] %}
+            <option value="{{ s }}" {{ 'selected' if quote.status == s }}>{{ s.replace('_',' ').title() }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="form-group full-width">
+      <label>Internal Notes</label>
+      <textarea name="notes" rows="4">{{ quote.notes or '' }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

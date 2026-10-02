@@ -1,0 +1,63 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Dashboard — PROTODUDES Admin{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Dashboard</h1>
+<p>Welcome back, <strong>{{ session.username }}</strong>.</p>
+
+<div class="stat-cards">
+  <div class="stat-card">
+    <div class="stat-num">{{ counts.quotes_new }}</div>
+    <div class="stat-label">New Quotes</div>
+    <a href="{{ url_for('admin_quotes', status='new') }}">View →</a>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">{{ counts.jobs_pending }}</div>
+    <div class="stat-label">Pending Jobs</div>
+    <a href="{{ url_for('admin_jobs') }}">View →</a>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">{{ counts.jobs_done }}</div>
+    <div class="stat-label">Completed Jobs</div>
+    <a href="{{ url_for('admin_jobs') }}">View →</a>
+  </div>
+</div>
+
+<h2>Recent Quotes</h2>
+<table class="data-table">
+  <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Status</th><th>Date</th><th></th></tr></thead>
+  <tbody>
+    {% for q in quotes %}
+    <tr>
+      <td>{{ q.id }}</td>
+      <td>{{ q.name }}</td>
+      <td>{{ q.email }}</td>
+      <td><span class="badge badge-{{ q.status }}">{{ q.status }}</span></td>
+      <td>{{ q.created[:10] }}</td>
+      <td><a href="{{ url_for('admin_quote_detail', quote_id=q.id) }}">View</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6" style="text-align:center;color:#999">No quotes yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Recent Jobs</h2>
+<table class="data-table">
+  <thead><tr><th>#</th><th>Title</th><th>Client</th><th>Status</th><th>Date</th><th></th></tr></thead>
+  <tbody>
+    {% for j in jobs %}
+    <tr>
+      <td>{{ j.id }}</td>
+      <td>{{ j.title }}</td>
+      <td>{{ j.client_name or '—' }}</td>
+      <td><span class="badge badge-{{ j.status }}">{{ j.status }}</span></td>
+      <td>{{ j.created[:10] }}</td>
+      <td><a href="{{ url_for('admin_job_detail', job_id=j.id) }}">View</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6" style="text-align:center;color:#999">No jobs yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Staff Login —  PROTODUDES{% endblock %}
+
+{% block content %}
+<div class="form-page narrow">
+  <h1>Staff Login</h1>
+  <form method="POST" action="{{ url_for('login', next=request.args.get('next','')) }}" class="contact-form" autocomplete="off">
+    <div class="form-group full-width">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required autocomplete="username" />
+    </div>
+    <div class="form-group full-width">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required autocomplete="current-password" />
+    </div>
+    <button type="submit" class="btn btn-primary">Log In</button>
+  </form>
+</div>
+{% endblock %}

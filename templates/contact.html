@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Contact Us — PROTODUDES{% endblock %}
+
+{% block content %}
+<div class="form-page">
+  <h1>Contact / Quote Request</h1>
+  <p>Fill out the form below and we'll reach back out at <strong>shoplbl3d@gmail.com</strong>. Use the <a href="{{ url_for('quote') }}">STL Quote Tool</a> first to get an estimate, then paste it in your description.</p>
+
+  <form method="POST" action="{{ url_for('contact') }}" class="contact-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" name="name" required autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" required autocomplete="email" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="phone">Phone (optional)</label>
+        <input type="tel" id="phone" name="phone" autocomplete="tel" />
+      </div>
+      <div class="form-group">
+        <label for="material">Preferred Material</label>
+        <select id="material" name="material">
+          <option value="">— Not sure —</option>
+          <option>PLA</option>
+          <option>PETG</option>
+          <option>ABS</option>
+          <option>TPU (Flexible)</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="estimated_low">Quote Low Estimate ($)</label>
+        <input type="number" id="estimated_low" name="estimated_low" min="0" step="0.01" placeholder="From STL tool" />
+      </div>
+      <div class="form-group">
+        <label for="estimated_high">Quote High Estimate ($)</label>
+        <input type="number" id="estimated_high" name="estimated_high" min="0" step="0.01" placeholder="From STL tool" />
+      </div>
+    </div>
+
+    <div class="form-group full-width">
+      <label for="description">Project Description</label>
+      <textarea id="description" name="description" rows="5" placeholder="Tell us about your project — quantity, colour, deadline, etc."></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send Request</button>
+  </form>
+</div>
+{% endblock %}
