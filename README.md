@@ -25,17 +25,6 @@ Flask web app with SQLite database, admin dashboard, quote management, and the e
 
 ---
 
-## First Login
-
-| Field    | Value          |
-|----------|----------------|
-| Username | `admin`        |
-| Password | `changeme123`  |
-
-**Change the password immediately** at `http://127.0.0.1:5000/admin/change-password`.
-
----
-
 ## Folder Structure
 
 ```
