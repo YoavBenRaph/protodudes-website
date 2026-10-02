@@ -203,7 +203,7 @@ def contact():
         db.commit()
 
         flash(
-            "Thanks! Your request has been sent to shoplbl3d@gmail.com — "
+            "Thanks! Your request has been sent to info@protodudes.ca — "
             "we'll be in touch soon.",
             "success",
         )
